@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title></title>
+{%include "script.html" %}
+<link rel="stylesheet" type="text/css" href="static/css/menu.css">
+</head>
+<body>
+<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
+	{%include "header.html" %}
+	{%include "menu.html" %}
+</div>
+<script type="text/javascript" src="static/laydate/laydate.js"></script>
+<script type="text/javascript">
+	laydate.render({
+      elem: '#startDate',
+    });
+    laydate.render({
+      elem: '#stopDate',
+    });
+</script>
+</body>
+</html>

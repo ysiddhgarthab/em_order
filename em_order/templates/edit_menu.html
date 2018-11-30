@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{%include "script.html" %}
+	{%include "select.html" %}
+</head>
+<body>
+	<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
+	{%include "header.html"%}
+	<div class="row-fluid">
+		<div class="span12">
+			<form class="form-inline" method="post" action="/edit_menu_check" style="text-align: center;background-color: #dff0d8;border-radius:30px;">
+				{% csrf_token %}
+				<fieldset>
+					 <legend>编辑菜单</legend>
+					 {% for i in thisMenu %}
+					 <input type="hidden" name="mDate" value='{{ i.mDate|date:"Y-m-d" }}'>
+					 <p><label>日期：</label><input id="menuDate" value='{{ i.mDate|date:"Y-m-d" }}' type="text" disabled="disabled" /></p> 
+					 <p><label>早餐：</label><input id="selectPage1" value="{{ i.bre }}" name="bre" type="text" /></p> 
+					 <p><label>中餐：</label><input id="selectPage2" value="{{ i.lun }}" name="lun" type="text" /></p> 
+					 <p><label>晚餐：</label><input id="selectPage3" value="{{ i.din }}" name="din" type="text" /></p>
+					 {% endfor %}
+					 <button type="submit" class="btn btn-success" style="margin-right: -210px;">保存</button>
+				</fieldset>
+			</form>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" src="static/laydate/laydate.js"></script>
+<script type="text/javascript">
+    var allFood = {{ allFood|safe }};
+    $('#selectPage1').selectPage({
+    showField : 'fName',
+    keyField : 'fName',
+    data : allFood,
+    multiple : true
+});
+    $('#selectPage2').selectPage({
+    showField : 'fName',
+    keyField : 'fName',
+    data : allFood,
+    multiple : true
+});
+    $('#selectPage3').selectPage({
+    showField : 'fName',
+    keyField : 'fName',
+    data : allFood,
+    multiple : true
+});
+    laydate.render({
+      elem: '#menuDate',
+    });
+</script>
+</body>
+</html>

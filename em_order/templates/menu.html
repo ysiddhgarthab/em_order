@@ -1,0 +1,52 @@
+<div class="row-fluid" style="margin-top: 50px;">
+	<div class="span12" id="mTable">
+		<form class="form-search" action="/" method="post">
+				{% csrf_token %}
+				<input class="input-small search-query" id="startDate" name="startDate" placeholder="开始日期" type="text" /> 
+				<input class="input-small search-query" id="stopDate" name="stopDate" placeholder="结束日期" type="text" />
+				<button type="submit" class="btn">查找</button>
+			</form>
+		<table class="table table-bordered">
+			<thead>
+				<tr style="background-color:#dff0d8">
+					<th>
+						日期
+					</th>
+					<th>
+						早餐
+					</th>
+					<th>
+						午餐
+					</th>
+					<th>
+						晚餐
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in menu %}
+					<tr style="background-color:#dff0d8 ">
+					<td><a href='edit_menu?mDate={{ i.mDate|date:"Y-m-d" }}'>{{ i.mDate|date:"Y-m-d" }}</a></td>
+					<td>
+						{% for bre in i.bre %}
+							{{ bre }}</br>
+						{% endfor %}
+					</td>
+					<td>
+						{% for lun in i.lun %}
+							{{ lun }}</br>
+						{% endfor %}
+					</td>
+					<td>
+						{% for din in i.din %}
+							{{ din }}</br>
+						{% endfor %}
+					</td>
+					</tr>
+				{% empty %}
+					<tr><td colspan="4">厨师很懒，还没有添加菜单...</td></tr>		
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>

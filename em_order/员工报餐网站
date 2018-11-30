@@ -1,0 +1,13 @@
+游客：菜单
+登录用户(flag=3)：菜单 用户报餐 评论菜品
+厨师(flag=2)：管理菜单，管理菜品，查看菜品评价
+管理员（flag=1）：管理菜单，管理菜品，查看菜品评价,管理用户账号，管理用户报餐
+
+菜单表：
+	id mDate bre lun din
+报餐表：
+	id userId bre lun din
+菜品表：
+	id fName fType fSpicy fCost fDesc fPic
+用户表：
+	id eId uName uPwd flag

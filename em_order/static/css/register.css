@@ -1,0 +1,12 @@
+.login_form{
+            width:400px;
+            height:360px;
+            position: absolute;
+            left:50%;
+            top:50%;
+            margin-left:-200px;
+            margin-top:-130px;
+            background-color: #dff0d8;
+            border-radius:30px;
+            text-align: center;
+      } 

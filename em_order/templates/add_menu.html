@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{%include "script.html" %}
+	{%include "select.html" %}
+	<link rel="stylesheet" type="text/css" href="static/css/add_menu.css">
+</head>
+<body>
+	<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
+		{%include "header.html"%}
+		<div class="row-fluid">
+			<div class="span12">
+				<form class="form-inline" method="post" action="/add_menu_check"  style="text-align: center;background-color: #dff0d8;border-radius:30px;">
+					{% csrf_token %}
+					<fieldset>
+						 <legend>添加菜单</legend>
+						 <p><label>日期：</label><input id="menuDate" type="text" name="mDate"/></p> 
+						 <p><label>早餐：</label><input id="selectPage1" name="bre" type="text" /></p> 
+						 <p><label>中餐：</label><input id="selectPage2" name="lun" type="text" /></p> 
+						 <p><label>晚餐：</label><input id="selectPage3" name="din" type="text" /></p> 
+						 <button type="submit" class="btn btn-success" style="margin-right: -210px;">添加</button>
+					</fieldset>
+				</form>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="static/laydate/laydate.js"></script>
+<script type="text/javascript">
+    var allFood = {{ allFood|safe }};
+    $('#selectPage1').selectPage({
+    showField : 'fName',
+    keyField : 'fName',
+    data : allFood,
+    multiple : true
+});
+    $('#selectPage2').selectPage({
+    showField : 'fName',
+    keyField : 'fName',
+    data : allFood,
+    multiple : true
+});
+    $('#selectPage3').selectPage({
+    showField : 'fName',
+    keyField : 'fName',
+    data : allFood,
+    multiple : true
+});
+    laydate.render({
+      elem: '#menuDate',
+    });
+</script>
+</body>
+</html>

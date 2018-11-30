@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{%include "script.html" %}
+	<link rel="stylesheet" type="text/css" href="static/css/register.css">
+</head>
+<body>
+	<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
+	{%include "header.html" %}
+	<div class="login_form">
+		<form class="form-inline" method="post" action="/register">
+			{% csrf_token %}
+			<fieldset>
+				 <legend>添加用户</legend>
+				 {% for field in form %}
+					<div class="fieldWrapper">
+					{{ field.errors }}
+					<p>{{ field.label_tag }} {{ field }}</p>
+					{% if field.help_text %}
+						<p class="help">{{ field.help_text|safe }}</p>
+					{% endif %}
+					</div>
+				{% endfor %}
+				 <button type="submit" class="btn btn-success" style="margin-right: -200px;">登录</button>
+			</fieldset>
+		</form>
+	</div>
+	</div>
+</body>
+</html>

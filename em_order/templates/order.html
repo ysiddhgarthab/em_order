@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{%include "script.html"%}
+	<link rel="stylesheet" type="text/css" href="static/css/order.css">
+</head>
+<body>
+<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
+	{%include "header.html" %}
+	<div class="row-fluid">
+	<div class="span12" id="oTable">
+	<form class="form-inline" method="post" action="/order_check">
+		{% csrf_token %}
+		<button type="submit" class="btn btn-success" style="float: right;">保存报餐</button>
+		<table class="table table-bordered">
+			<thead>
+				<tr style="background-color:#dff0d8">
+					<th>
+						日期
+					</th>
+					<th>
+						早餐
+					</th>
+					<th>
+						午餐
+					</th>
+					<th>
+						晚餐
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% if order %}
+					{% for i in order %}
+						<tr style="background-color:#dff0d8 ">
+							<td>{{i.0}} {{i.1}}</td>
+							<td><input type="checkbox" value="1" name="{{i.0}}bre" {% if i.2%}checked="checked"{% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}lun" {% if i.3%}checked="checked"{% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}din" {% if i.4%}checked="checked"{% endif %}></td>
+						</tr>
+					{% endfor %}
+				{% else %}
+					{% for i in dateList %}
+						<tr style="background-color:#dff0d8 ">
+							<td>{{i.0}} {{i.1}}</td>
+							<td><input type="checkbox" value="1" name="{{i.0}}bre"></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}lun"></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}din"></td>
+						</tr>
+					{% endfor %}
+				{% endif %}
+			</tbody>
+		</table>
+	</form>
+	</div>
+	</div>
+</div>
+</body>
+</html>
