@@ -12,8 +12,13 @@
 	<div class="span12" id="oTable">
 	<form class="form-inline" method="post" action="/order_check">
 		{% csrf_token %}
+		<a href="/order?year={{lastMonth.0}}&month={{lastMonth.1}}"><button type="button" class="btn">上月</button></a>
+		<a href="/order?year={{nextMonth.0}}&month={{nextMonth.1}}"><button type="button" class="btn">下月</button></a>
+		<input type="hidden" name="selectYear" value="{{selectMonth.0}}">
+		<input type="hidden" name="selectMonth" value="{{selectMonth.1}}">
+		<input type="hidden" name="next" value="{{request.get_full_path}}">
 		<button type="submit" class="btn btn-success" style="float: right;">保存报餐</button>
-		<table class="table table-bordered">
+		<table class="table table-bordered" style="margin-top: 10px;">
 			<thead>
 				<tr style="background-color:#dff0d8">
 					<th>
@@ -41,7 +46,7 @@
 						</tr>
 					{% endfor %}
 				{% else %}
-					{% for i in dateList %}
+					{% for i in firstOrder %}
 						<tr style="background-color:#dff0d8 ">
 							<td>{{i.0}} {{i.1}}</td>
 							<td><input type="checkbox" value="1" name="{{i.0}}bre"></td>

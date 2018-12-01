@@ -8,18 +8,31 @@
 <body>
 	<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
 	{%include "header.html" %}
+	{% if message %}
+	<div class="row-fluid">
+		<div class="span12">
+			<div class="alert">
+				 <button type="button" class="close" data-dismiss="alert">×</button>
+				<h4>
+					提示!
+				</h4> <strong>{{message}}</strong>
+			</div>
+		</div>
+	</div>
+	{% endif %}
 	<div class="login_form">
-		<form class="form-inline" method="post" action="/login">
+		<form class="form-inline" method="post" action="/login" onsubmit="return inputCheck()">
 			{% csrf_token %}
 			<fieldset>
 				 <legend>用户登录</legend>
-				 <p><label>用户名：</label><input type="text" name="username" placeholder="请输入用户名" /></p> 
-				 <p style="margin-left: 10px;"><label>密  码：</label><input type="password" name="password" placeholder="请输入密码" /></p>
+				 <p><label>用户名：</label><input type="text" id="username" name="username" placeholder="请输入用户名" /></p> 
+				 <p style="margin-left: 10px;"><label>密  码：</label><input type="password" id="password" name="password" placeholder="请输入密码" /></p>
 				 <input type="hidden" name="next" value="{{ next }}">
 				 <button type="submit" class="btn btn-success" style="margin-right: -220px;">登录</button>
 			</fieldset>
 		</form>
 	</div>
 	</div>
+<script type="text/javascript" src="static/js/login.js"></script>
 </body>
 </html>

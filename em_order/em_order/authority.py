@@ -34,6 +34,7 @@ def register(request):
 
 
 def login(request):
+	#获取用户下一跳地址，如果没有赋值为一个空字符串
 	next = request.GET.get('next','')
 	if request.POST:
 		username = request.POST['username']
@@ -43,16 +44,19 @@ def login(request):
 			auth.login(request, user)
 			request.session['username'] = user.username
 			userProfile = UserProfile.objects.filter(user=user)
+			#登录成功之后设置session
 			for u in userProfile:
 				request.session['eId'] = u.eId
 				request.session['flag'] = u.flag
+			#登录成功之后如果有下一跳地址则跳转到目的地址
 			if request.POST['next']:
 				return HttpResponseRedirect(request.POST['next'])
 			else:
 				return HttpResponseRedirect("/")
 		else:
 			# 登陆失败
-			return render(request, 'login.html')
+			message = "登录失败，请检查输入的用户名或密码是否正确"
+			return render(request, 'login.html',{"message":message})
 	return render(request, 'login.html',{"next":next})
 
 @login_required 
