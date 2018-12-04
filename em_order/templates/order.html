@@ -18,9 +18,9 @@
 		<input type="hidden" name="selectMonth" value="{{selectMonth.1}}">
 		<input type="hidden" name="next" value="{{request.get_full_path}}">
 		<button type="submit" class="btn btn-success" style="float: right;">保存报餐</button>
-		<table class="table table-bordered" style="margin-top: 10px;">
+		<table class="table table-hover table-bordered" style="margin-top: 10px;">
 			<thead>
-				<tr style="background-color:#dff0d8">
+				<tr>
 					<th>
 						日期
 					</th>
@@ -38,7 +38,7 @@
 			<tbody>
 				{% if order %}
 					{% for i in order %}
-						<tr style="background-color:#dff0d8 ">
+						<tr class="success">
 							<td>{{i.0}} {{i.1}}</td>
 							<td><input type="checkbox" value="1" name="{{i.0}}bre" {% if i.2%}checked="checked"{% endif %}{% if i.5 %}disabled="disabled"{% endif %}></td>
 							<td><input type="checkbox" value="1" name="{{i.0}}lun" {% if i.3%}checked="checked"{% endif %}{% if i.5 %}disabled="disabled"{% endif %}></td>

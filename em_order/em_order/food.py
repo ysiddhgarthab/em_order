@@ -47,3 +47,16 @@ def add_food_check(request):
         
 
     return HttpResponseRedirect("/add_food")
+
+
+
+def food_admin(request):
+    if request.POST:
+        keyWord = request.POST.get('keyWord','')
+        fType = request.POST['fType']
+        AllFood=Food.objects.filter(fName__icontains=keyWord)
+        if fType:
+            AllFood=Food.objects.filter(fName__icontains=keyWord,fType=fType)
+        return render(request,"food_admin.html",{"AllFood":AllFood})
+    AllFood = Food.objects.all()
+    return render(request,"food_admin.html",{"AllFood":AllFood})

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{%include "script.html"%}
+	<style type="text/css">
+		#mTable th{
+			vertical-align: middle;
+    		text-align: center; 
+		}
+
+		#mTable td{
+			vertical-align: middle;
+    		text-align: center; 
+		}
+	</style>
+</head>
+<body>
+<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
+	{%include "header.html"%}
+	<div class="row-fluid" id="mTable">
+		<form class="form-search" action="/food_admin" method="post">
+				{% csrf_token %}
+				<select name="fType">
+						<option value="">--请选择--</option>
+						<option value="粤菜">粤菜</option>
+						<option value="川菜">川菜</option>
+						<option value="鲁菜">鲁菜</option>			 	
+				</select>
+				<input class="input-small search-query" name="keyWord" placeholder="请输入关键字" type="text"/>
+				<button type="submit" class="btn">查找</button>
+			</form>
+		<table class="table table-hover table-bordered">
+			<thead>
+				<tr>
+					<th>
+						菜品名
+					</th>
+					<th>
+						菜系
+					</th>
+					<th>
+						辣度
+					</th>
+					<th>
+						预计成本
+					</th>
+					<th>
+						菜品描述
+					</th>
+					<th>
+						图片
+					</th>
+					<th>
+						操作
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				{% for i in AllFood %}
+					<tr class="success">
+						<td>{{i.fName}}</td>
+						<td>{{i.fType}}</td>
+						<td>{{i.fSpicy}}</td>
+						<td>{{i.fCost}}</td>
+						<td style="width: 400px;">{{i.fDesc}}</td>
+						<td><img src="static/media/{{i.fPic}}" onerror="this.src='static/images/server/default.png'" style="width: 100px;"></td>
+						<td><a href="/edit_food?fId={{i.id}}"><button type="button" class="btn">编辑</button></a></td>
+					</tr>
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+</body>
+</html>
