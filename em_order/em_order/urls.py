@@ -14,4 +14,5 @@ urlpatterns = [
     url(r'^register$',authority.register),
     url(r'^order$',order.order),
     url(r'^order_check$',order.order_check),
+    url(r'^userAdmin$',authority.userAdmin),
 ]

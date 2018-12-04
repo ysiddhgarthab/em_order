@@ -7,9 +7,9 @@ class Food(models.Model):
 	fName  = models.CharField(max_length=20,unique=True)
 	fType  = models.CharField(max_length=20)
 	fSpicy = models.CharField(max_length=10)
-	fCost  = models.IntegerField() 
-	fDesc  = models.CharField(max_length=255)
-	fPic   = models.ImageField(upload_to='OrderMedel/')
+	fCost  = models.IntegerField(null=True,blank=True) 
+	fDesc  = models.CharField(max_length=255,null=True,blank=True)
+	fPic   = models.ImageField(upload_to='OrderMedel/',null=True,blank=True)
 
 
 class Menu(models.Model):
@@ -27,11 +27,11 @@ class UserProfile(models.Model):
  		)
 	flag = models.IntegerField('flag')
 
-	class Meta:
-		verbose_name = 'User Profile'
+	# class Meta:
+	# 	verbose_name = 'User Profile'
 
-	def __str__(self):
-		return self.user.__str__()
+	# def __str__(self):
+	# 	return self.user.__str__()
 
 
 class Order(models.Model):

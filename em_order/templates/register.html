@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
 	{%include "script.html" %}
 	<link rel="stylesheet" type="text/css" href="static/css/register.css">
@@ -9,23 +12,25 @@
 	<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
 	{%include "header.html" %}
 	<div class="login_form">
-		<form class="form-inline" method="post" action="/register">
+		<form class="form-inline" method="post" action="/register" onsubmit="return inputCheck()">
 			{% csrf_token %}
 			<fieldset>
 				 <legend>添加用户</legend>
-				 {% for field in form %}
-					<div class="fieldWrapper">
-					{{ field.errors }}
-					<p>{{ field.label_tag }} {{ field }}</p>
-					{% if field.help_text %}
-						<p class="help">{{ field.help_text|safe }}</p>
-					{% endif %}
-					</div>
-				{% endfor %}
-				 <button type="submit" class="btn btn-success" style="margin-right: -200px;">登录</button>
+				 <p><label>员工号：</label><input type="text" id="eId" name="eId" placeholder="请输入员工号" /></p>
+				 <p><label>用户名：</label><input type="text" id="username" name="username" placeholder="请输入用户名" /></p> 
+				 <p style="margin-left: 13px;"><label>密码：</label><input type="password" id="password1" name="password1" placeholder="请输入密码" /></p>
+				  <p><label style="margin-left: -15px;">确认密码：</label><input type="password" id="password2" name="password2" placeholder="请再次输入密码" /></p>
+				 <p><label style="margin-left: 13px;">身份：</label>
+				 	<select id="flag" name="flag">
+						<option value="3">用户</option>
+						<option value="2">厨师</option>
+						<option value="1">管理员</option>			 	
+				 	</select></p>
+				 <button type="submit" class="btn btn-success" style="margin-right: -220px;">添加</button>
 			</fieldset>
 		</form>
 	</div>
 	</div>
+<script type="text/javascript" src="static/js/register.js"></script>
 </body>
 </html>

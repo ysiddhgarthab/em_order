@@ -73,12 +73,23 @@ def order(request):
 	startDate = dateList[0][0]
 	stopDate  = dateList[-1][0]
 	order = Order.objects.filter(oDate__range=(startDate,stopDate),eId=request.session['eId'])
+	#如果现在是下午5点之后，则不能修改明天的订餐
+	curTime = int(time.strftime("%H%M%S"))
+	today = datetime.date.today()
+	tomorrow = today + datetime.timedelta(days=1)
+	limit = today
+	if curTime>170000:
+		limit = tomorrow
 	#根据查询结果判断用户是否报餐，如果已报餐就把报餐数据格式化后返回前台显示，否则返回一个时间列表
 	if order:
 		for index,item in enumerate(order):
 			dateList[index].append(item.bre)
 			dateList[index].append(item.lun)
 			dateList[index].append(item.din)
+			if item.oDate <= limit:
+				dateList[index].append(True)
+			else:
+				dateList[index].append(False)
 		return render(request,'order.html',{"order":dateList,"lastMonth":lastMonth,"nextMonth":nextMonth,"selectMonth":selectMonth})
 	return render(request,'order.html',{"firstOrder":dateList,"lastMonth":lastMonth,"nextMonth":nextMonth,"selectMonth":selectMonth})
 

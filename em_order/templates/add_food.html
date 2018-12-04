@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
 	{%include "script.html" %}
 	{%include "select.html" %}
@@ -9,13 +12,13 @@
 	<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
 	{%include "header.html"%}
 	<div class="food_form">
-		<form class="form-inline" action="/add_food_check" method="post" enctype="multipart/form-data"  style="text-align: center;background-color: #dff0d8;border-radius:30px;">
+		<form class="form-inline" action="/add_food_check" method="post" enctype="multipart/form-data"  style="text-align: center;background-color: #dff0d8;border-radius:30px;" onsubmit="return inputCheck()">
 			{% csrf_token %}
 			<fieldset>
 				 <legend>添加菜品</legend>
-				 <p><label style="margin-right: 20px;">菜 名：&nbsp</label><input type="text" name="fName"></p> 
+				 <p><label style="margin-right: 20px;">菜 名：&nbsp</label><input type="text" id="fName" name="fName"></p> 
 				 <p><label style="margin-right: 20px;">菜 系：</label>
-				 	<select class="form-control" name="fType">
+				 	<select class="form-control" id="fType" name="fType">
 					  <option>粤菜</option>
 					  <option>川菜</option>
 					  <option>鲁菜</option>
@@ -24,15 +27,15 @@
 					</select>
 				 </p> 
 				 <p><label style="margin-right: 20px;">辣 度：</label>
-				 	<select class="form-control" name="fSpicy">
+				 	<select class="form-control" id="fSpicy" name="fSpicy">
 					  <option>不辣</option>	
 					  <option>微辣</option>
 					  <option>中辣</option>
 					  <option>辣到妈妈都不认识</option>
 					</select>
 				 </p> 
-				 <p><label>预计成本：</label><input type="text" name="fCost"></p> 
-				 <p><label>菜品描述：</label><textarea name="fDesc"></textarea></p>
+				 <p><label>预计成本：</label><input id="fCost" type="text" name="fCost"></p> 
+				 <p><label>菜品描述：</label><textarea id="fDesc" name="fDesc"></textarea></p>
 				 <p><label style="margin-left: 40px">上传图片：</label><input type="file" name="fPic" accept="image/gif,image/jpeg,image/jpg,image/png"  onchange="PreviewImage(this,'imgHeadPhoto','divPreview');">
 				<div id="divPreview">
     				<img id="imgHeadPhoto" src="" style="width: 160px; height: 170px; border: solid 1px #d2e2e2;" alt="" />

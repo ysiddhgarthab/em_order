@@ -4,7 +4,6 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from OrderModel.models import UserProfile
 from django.contrib import auth
-from OrderModel.forms import RegistrationForm
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 
@@ -12,25 +11,18 @@ from django.contrib.auth.decorators import login_required
 @login_required
 def register(request):
 	if request.method == 'POST':
-		form = RegistrationForm(request.POST)
-		if form.is_valid():
-			username = form.cleaned_data['username']
-			password = form.cleaned_data['password2']
-			eId      = form.cleaned_data.get('eId')
-			flag      = form.cleaned_data.get('flag')
+		eId = request.POST['eId']
+		username = request.POST['username']
+		password = request.POST['password2']
+		flag = request.POST['flag']
+		# 使用内置User自带create_user方法创建用户，不需要使用save()
+		user = User.objects.create_user(username=username, password=password)
+		# 如果直接使用objects.create()方法后不需要使用save()
+		user_profile = UserProfile(user=user,eId=eId,flag=flag)
+		user_profile.save()
+		return HttpResponseRedirect("/login")
 
-			# 使用内置User自带create_user方法创建用户，不需要使用save()
-			user = User.objects.create_user(username=username, password=password)
-
-			# 如果直接使用objects.create()方法后不需要使用save()
-			user_profile = UserProfile(user=user,eId=eId,flag=flag)
-			user_profile.save()
-
-			return HttpResponseRedirect("/login")
-	else:
-		form = RegistrationForm()
-
-	return render(request, 'register.html', {'form': form})
+	return render(request,"register.html")
 
 
 def login(request):
@@ -63,3 +55,7 @@ def login(request):
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect("/")
+
+
+def userAdmin(request):
+	return render(request,"userAdmin.html")

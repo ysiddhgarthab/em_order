@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
 	{%include "script.html" %}
 	{%include "select.html" %}
@@ -11,7 +14,7 @@
 		{%include "header.html"%}
 		<div class="row-fluid">
 			<div class="span12">
-				<form class="form-inline" method="post" action="/add_menu_check"  style="text-align: center;background-color: #dff0d8;border-radius:30px;">
+				<form class="form-inline" method="post" action="/add_menu_check"  style="text-align: center;background-color: #dff0d8;border-radius:30px;"  onsubmit="return inputCheck()">
 					{% csrf_token %}
 					<fieldset>
 						 <legend>添加菜单</legend>
@@ -25,6 +28,7 @@
 			</div>
 		</div>
 	</div>
+<script type="text/javascript" src="static/js/add_menu.js"></script>
 <script type="text/javascript" src="static/laydate/laydate.js"></script>
 <script type="text/javascript">
     var allFood = {{ allFood|safe }};

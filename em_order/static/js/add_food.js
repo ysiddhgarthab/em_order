@@ -57,7 +57,7 @@
         }
 
 $(function(){
-    $("#food_des").bind('input propertychange',function(){
+    $("#fDesc").bind('input propertychange',function(){
         var self = $(this);
         var content = self.val();
         if(content.length>100){
@@ -66,7 +66,7 @@ $(function(){
         } 
     });
 
-    $("#food_cost").bind('input propertychange',function(){
+    $("#fCost").bind('input propertychange',function(){
         var reg=/^[1-9]+[0-9]*]*$/; //判断输入是否为正整数
         var number=$(this).val();
         if(!reg.test(number)){
@@ -75,3 +75,12 @@ $(function(){
         }
     });
 });
+
+function inputCheck(){
+    var fName = document.getElementById("fName").value.replace(/\s+/g,"");
+    if(fName == ""){
+        alert("菜品名不能为空！")
+        return false;
+    }
+    return true;
+}

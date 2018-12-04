@@ -10,7 +10,7 @@
 	{%include "header.html"%}
 	<div class="row-fluid">
 		<div class="span12">
-			<form class="form-inline" method="post" action="/edit_menu_check" style="text-align: center;background-color: #dff0d8;border-radius:30px;">
+			<form class="form-inline" method="post" action="/edit_menu_check" style="text-align: center;background-color: #dff0d8;border-radius:30px;" onsubmit="return inputCheck()">
 				{% csrf_token %}
 				<fieldset>
 					 <legend>编辑菜单</legend>
@@ -27,6 +27,7 @@
 		</div>
 	</div>
 </div>
+<script type="text/javascript" src="static/js/edit_menu.js"></script>
 <script type="text/javascript" src="static/laydate/laydate.js"></script>
 <script type="text/javascript">
     var allFood = {{ allFood|safe }};

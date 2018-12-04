@@ -40,9 +40,9 @@
 					{% for i in order %}
 						<tr style="background-color:#dff0d8 ">
 							<td>{{i.0}} {{i.1}}</td>
-							<td><input type="checkbox" value="1" name="{{i.0}}bre" {% if i.2%}checked="checked"{% endif %}></td>
-							<td><input type="checkbox" value="1" name="{{i.0}}lun" {% if i.3%}checked="checked"{% endif %}></td>
-							<td><input type="checkbox" value="1" name="{{i.0}}din" {% if i.4%}checked="checked"{% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}bre" {% if i.2%}checked="checked"{% endif %}{% if i.5 %}disabled="disabled"{% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}lun" {% if i.3%}checked="checked"{% endif %}{% if i.5 %}disabled="disabled"{% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}din" {% if i.4%}checked="checked"{% endif %}{% if i.5 %}disabled="disabled"{% endif %}></td>
 						</tr>
 					{% endfor %}
 				{% else %}
