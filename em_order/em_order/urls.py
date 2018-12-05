@@ -6,6 +6,7 @@ urlpatterns = [
     url(r'^add_food$', food.add_food),
     url(r'^add_food_check$', food.add_food_check),
     url(r'^food_admin$', food.food_admin),
+    url(r'^edit_food$', food.edit_food),
     url(r'^add_menu$', menu.add_menu),
     url(r'^add_menu_check$', menu.add_menu_check),
     url(r'^edit_menu$', menu.edit_menu),
