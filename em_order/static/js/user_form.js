@@ -12,7 +12,7 @@ function inputCheck(){
 		return false;
 	}
 	if(password1.length<6||password1.length>20||password2.length<6||password2.length>20){
-		alert("请输入字符长度在6到20之间的员工号！")
+		alert("请输入字符长度在6到20之间的密码！")
 		return false;
 	}
 	if(password1!=password2){

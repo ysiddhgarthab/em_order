@@ -9,6 +9,7 @@ import time
 from django.shortcuts import render_to_response
 import json
 from django.contrib.auth.decorators import login_required
+import os
 
 
 @login_required
@@ -23,7 +24,7 @@ def add_food_check(request):
     return HttpResponseRedirect("/add_food")
 
 
-
+@login_required
 def food_admin(request):
     if request.POST:
         keyWord = request.POST.get('keyWord','')
@@ -33,10 +34,11 @@ def food_admin(request):
             AllFood=Food.objects.filter(fName__icontains=keyWord,fType=fType)
         return render(request,"food_admin.html",{"AllFood":AllFood})
     AllFood = Food.objects.all()
-    return render(request,"food_admin.html",{"AllFood":AllFood})
+    message = request.GET.get('message','')
+    return render(request,"food_admin.html",{"AllFood":AllFood,"message":message})
 
 
-
+@login_required
 def edit_food(request):
     if request.GET:
         fId = request.GET['fId']
@@ -44,9 +46,10 @@ def edit_food(request):
         return render(request,"edit_food.html",{"thisFood":thisFood[0]})
     if request.POST:
         mod_food(request)
-        return HttpResponseRedirect("/food_admin")
+        return HttpResponseRedirect("/food_admin?message=保存成功！")
 
 
+@login_required
 def mod_food(request):
     if request.POST:
         fId    = request.POST.get('fId','')
@@ -88,4 +91,24 @@ def mod_food(request):
         else:
             fo   = Food(fName=fName,fType=fType,fSpicy=fSpicy,fCost=fCost,fDesc=fDesc,fPic=fPic)
             fo.save()
-            
+
+
+@login_required
+def del_food(request):
+    if request.GET:
+        fId = request.GET['fId']
+        food = Food.objects.filter(id=fId)
+        if food[0].fPic:
+            picPath = settings.MEDIA_ROOT+"/"+str(food[0].fPic)
+            if(os.path.exists(picPath)):
+                os.remove(picPath)
+        food.delete()
+    return HttpResponseRedirect("/food_admin?message=删除成功！")
+
+
+def food_detail(request):
+    if request.GET:
+        fName = request.GET['fName']
+        food = Food.objects.filter(fName=fName)
+        print(food)
+    return render(request,"food_detail.html",{"food":food[0]})

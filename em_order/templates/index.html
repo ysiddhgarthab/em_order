@@ -21,6 +21,13 @@
     laydate.render({
       elem: '#stopDate',
     });
+    function inputCheck(){
+    	var startDate = document.getElementById("startDate").value.replace(/\s+/g,"");
+    	var stopDate = document.getElementById("stopDate").value.replace(/\s+/g,"");
+    	if (!startDate && !stopDate){
+    		return false;
+    	}
+    }
 </script>
 </body>
 </html>

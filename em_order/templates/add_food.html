@@ -38,7 +38,7 @@
 				 <p><label>菜品描述：</label><textarea id="fDesc" name="fDesc"></textarea></p>
 				 <p><label style="margin-left: 40px">上传图片：</label><input type="file" name="fPic" accept="image/gif,image/jpeg,image/jpg,image/png"  onchange="PreviewImage(this,'imgHeadPhoto','divPreview');">
 				<div id="divPreview">
-    				<img id="imgHeadPhoto" src="" style="width: 160px; height: 170px; border: solid 1px #d2e2e2;" alt="" />
+    				<img id="imgHeadPhoto" src="" style="width: 160px; height: 170px; border: solid 1px #d2e2e2;" onerror="this.src='static/images/server/default.png'" />
 				</div>
 			    </p> 
 				 <button type="submit" class="btn btn-success" style="margin-right: -250px;">添加</button>

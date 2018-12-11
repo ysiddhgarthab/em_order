@@ -40,18 +40,18 @@
 					{% for i in order %}
 						<tr class="success">
 							<td>{{i.0}} {{i.1}}</td>
-							<td><input type="checkbox" value="1" name="{{i.0}}bre" {% if i.2%}checked="checked"{% endif %}{% if i.5 %}onclick="return false;"{% endif %}></td>
-							<td><input type="checkbox" value="1" name="{{i.0}}lun" {% if i.3%}checked="checked"{% endif %}{% if i.5 %}onclick="return false;"{% endif %}></td>
-							<td><input type="checkbox" value="1" name="{{i.0}}din" {% if i.4%}checked="checked"{% endif %}{% if i.5 %}onclick="return false;"{% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}bre" {% if i.2%}checked="checked"{% endif %}{% if i.5 %}onclick="return false;"readonly {% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}lun" {% if i.3%}checked="checked"{% endif %}{% if i.5 %}onclick="return false;"readonly {% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}din" {% if i.4%}checked="checked"{% endif %}{% if i.5 %}onclick="return false;"readonly {% endif %}></td>
 						</tr>
 					{% endfor %}
 				{% else %}
 					{% for i in firstOrder %}
 						<tr class="success">
 							<td>{{i.0}} {{i.1}}</td>
-							<td><input type="checkbox" value="1" name="{{i.0}}bre"></td>
-							<td><input type="checkbox" value="1" name="{{i.0}}lun"></td>
-							<td><input type="checkbox" value="1" name="{{i.0}}din"></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}bre" {% if i.2 %}disabled{% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}lun" {% if i.2 %}disabled{% endif %}></td>
+							<td><input type="checkbox" value="1" name="{{i.0}}din" {% if i.2 %}disabled{% endif %}></td>
 						</tr>
 					{% endfor %}
 				{% endif %}
@@ -61,5 +61,6 @@
 	</div>
 	</div>
 </div>
+<script type="text/javascript" src="static/js/order.js"></script>
 </body>
 </html>

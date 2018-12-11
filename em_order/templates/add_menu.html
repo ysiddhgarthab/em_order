@@ -12,6 +12,18 @@
 <body>
 	<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
 		{%include "header.html"%}
+		{% if message %}
+		<div class="row-fluid" id="message">
+			<div class="span12">
+				<div class="alert">
+					 <button type="button" class="close" data-dismiss="alert">×</button>
+					<h4>
+						提示：
+					</h4> <strong>{{message}}</strong>
+				</div>
+			</div>
+		</div>
+		{% endif %}
 		<div class="row-fluid">
 			<div class="span12">
 				<form class="form-inline" method="post" action="/add_menu_check"  style="text-align: center;background-color: #dff0d8;border-radius:30px;"  onsubmit="return inputCheck()">

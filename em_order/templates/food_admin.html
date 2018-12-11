@@ -22,7 +22,7 @@
 		<form class="form-search" action="/food_admin" method="post">
 				{% csrf_token %}
 				<select name="fType">
-						<option value="">--请选择--</option>
+						<option value="">--请选择菜系--</option>
 						<option value="粤菜">粤菜</option>
 						<option value="川菜">川菜</option>
 						<option value="鲁菜">鲁菜</option>			 	
@@ -65,7 +65,9 @@
 						<td>{{i.fCost}}</td>
 						<td style="width: 400px;">{{i.fDesc}}</td>
 						<td><img src="static/media/{{i.fPic}}" onerror="this.src='static/images/server/default.png'" style="width: 100px;"></td>
-						<td><a href="/edit_food?fId={{i.id}}"><button type="button" class="btn">编辑</button></a></td>
+						<td><a href="/edit_food?fId={{i.id}}"><button type="button" class="btn">编辑</button></a>
+							<a  href="/del_food?fId={{i.id}}" onClick="return confirm('确定删除?');"><button type="button" class="btn btn-danger">删除</button></a>
+						</td>
 					</tr>
 				{% endfor %}
 			</tbody>

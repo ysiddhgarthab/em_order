@@ -1,6 +1,6 @@
 <div class="row-fluid" style="margin-top: 50px;">
 	<div class="span12" id="mTable">
-		<form class="form-search" action="/" method="post">
+		<form class="form-search" action="/" method="post" onsubmit="return inputCheck()">
 				{% csrf_token %}
 				<input class="input-small search-query" id="startDate" name="startDate" placeholder="开始日期" type="text" /> 
 				<input class="input-small search-query" id="stopDate" name="stopDate" placeholder="结束日期" type="text" />
@@ -29,17 +29,17 @@
 					<td><a href='edit_menu?mDate={{ i.mDate|date:"Y-m-d" }}'>{{ i.mDate|date:"Y-m-d" }}</a></td>
 					<td>
 						{% for bre in i.bre %}
-							{{ bre }}</br>
+							<a href="/food_detail?fName={{bre}}">{{ bre }}</a></br>
 						{% endfor %}
 					</td>
 					<td>
 						{% for lun in i.lun %}
-							{{ lun }}</br>
+							<a href="/food_detail?fName={{lun}}">{{ lun }}</a></br>
 						{% endfor %}
 					</td>
 					<td>
 						{% for din in i.din %}
-							{{ din }}</br>
+							<a href="/food_detail?fName={{din}}">{{ din }}</a></br>
 						{% endfor %}
 					</td>
 					</tr>

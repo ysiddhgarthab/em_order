@@ -57,5 +57,62 @@ def logout(request):
     return HttpResponseRedirect("/")
 
 
+
 def userAdmin(request):
-	return render(request,"userAdmin.html")
+	if request.POST:
+		keyWord = request.POST['keyWord']
+		userResult = User.objects.filter(username__icontains=keyWord)
+		userList = []
+		for u in userResult:
+			user = []
+			userProfile = UserProfile.objects.filter(user=u)
+			user.append(u.id)	
+			user.append(userProfile[0].eId)
+			user.append(u.username)
+			user.append(userProfile[0].flag)
+			userList.append(user)
+		return render(request,"userAdmin.html",{"userList":userList})
+
+	allUser = User.objects.all()
+	userList = []
+	for u in allUser:
+		user = []
+		userProfile = UserProfile.objects.filter(user=u)
+		user.append(u.id)	
+		user.append(userProfile[0].eId)
+		user.append(u.username)
+		user.append(userProfile[0].flag)
+		userList.append(user)
+	return render(request,"userAdmin.html",{"userList":userList})
+
+
+@login_required
+def del_user(request):
+	if request.GET:
+		userId = request.GET['id']
+		User.objects.filter(id=userId).delete()
+	return HttpResponseRedirect("/userAdmin")
+
+
+
+def edit_user(request):
+	if request.GET:
+		userInfo = {}
+		userInfo["id"]=request.GET['id']
+		userInfo["eId"]=request.GET['eId']
+		userInfo["username"]=request.GET['username']
+		userInfo["flag"]=request.GET['flag']
+		return render(request,"edit_user.html",{"userInfo":userInfo})
+	if request.POST:
+		userId = request.POST['userId']
+		eId = request.POST['eId']
+		username = request.POST['username']
+		password = request.POST['password']
+		flag = request.POST['flag']
+		user = User.objects.filter(id=userId)[0]
+		user.username = username
+		if password:
+			user.set_password(password)
+		user.save()
+		UserProfile.objects.filter(user_id=userId).update(eId=eId,flag=flag)
+		return HttpResponseRedirect("/userAdmin")

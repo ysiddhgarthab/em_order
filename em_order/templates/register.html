@@ -6,12 +6,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title></title>
 	{%include "script.html" %}
-	<link rel="stylesheet" type="text/css" href="static/css/register.css">
+	<link rel="stylesheet" type="text/css" href="static/css/user_form.css">
 </head>
 <body>
 	<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
 	{%include "header.html" %}
-	<div class="login_form">
+	<div class="user_form">
 		<form class="form-inline" method="post" action="/register" onsubmit="return inputCheck()">
 			{% csrf_token %}
 			<fieldset>
@@ -31,6 +31,6 @@
 		</form>
 	</div>
 	</div>
-<script type="text/javascript" src="static/js/register.js"></script>
+<script type="text/javascript" src="static/js/user_form.js"></script>
 </body>
 </html>

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{%include "script.html"%}
+	<link rel="stylesheet" type="text/css" href="static/css/food_detail.css">
+</head>
+<body>
+	<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
+	{%include "header.html"%}
+	<div class="fDetail">
+		<h3 style="text-align: center;">菜品详情</h3>
+		{% if food %}
+			<p><span>菜品名：</span>{{food.fName}}</p>
+			<p><span>菜系：</span>{{food.fType}}</p>
+			<p><span>辣度：</span>{{food.fSpicy}}</p>
+			<p><span>菜品描述：</span>{{food.fDesc}}</p>
+			<p><span>图片：</span><img src="/static/media/{{food.fPic}}" onerror="this.src='static/images/server/default.png'" style="width: 128px;"></p>
+		{% endif %}
+	</div>
+	</div>
+</body>
+</html>
