@@ -11,3 +11,5 @@
 	id fName fType fSpicy fCost fDesc fPic
 用户表：
 	id eId uName uPwd flag
+菜品评价表：
+	id fName score date user_id

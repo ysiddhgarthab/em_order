@@ -21,7 +21,7 @@
 					 <p><label>中餐：</label><input id="selectPage2" value="{{ i.lun }}" name="lun" type="text" /></p> 
 					 <p><label>晚餐：</label><input id="selectPage3" value="{{ i.din }}" name="din" type="text" /></p>
 					 {% endfor %}
-					 <button type="submit" class="btn btn-success" style="margin-right: -210px;">保存</button>
+					 <button type="submit" class="btn btn-success" style="margin-right: -210px;" {% if disable %}disabled="disabled"{% endif %}>保存</button>
 				</fieldset>
 			</form>
 		</div>

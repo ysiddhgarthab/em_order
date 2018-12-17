@@ -64,12 +64,16 @@ def edit_menu(request):
 		# 获得所提交日期对应的菜单数据
 		mDate = request.GET['mDate']
 		thisMenu = Menu.objects.filter(mDate=mDate)
+		today = time.strftime('%Y-%m-%d',time.localtime())
+		disable = ""
+		if mDate < today:
+			disable = True
 		# 把所有菜品名称返回初始化下拉框
 		allFood = Food.objects.values("fName")
 		fList = []
 		for n in allFood:
 			fList.append(n)
-		return render(request,"edit_menu.html",{"thisMenu":thisMenu,"allFood":json.dumps(fList)})
+		return render(request,"edit_menu.html",{"thisMenu":thisMenu,"allFood":json.dumps(fList),"disable":disable})
 
 
 @login_required

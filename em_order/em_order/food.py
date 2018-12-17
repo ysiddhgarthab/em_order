@@ -112,3 +112,10 @@ def food_detail(request):
         food = Food.objects.filter(fName=fName)
         print(food)
     return render(request,"food_detail.html",{"food":food[0]})
+
+
+def score(request):
+    if request.POST:
+        fName = request.POST['fName']
+        score = request.POST['score']
+    return HttpResponseRedirect("/")

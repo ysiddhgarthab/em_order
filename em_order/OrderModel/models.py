@@ -21,8 +21,8 @@ class Menu(models.Model):
 
 class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
-	eId = models.CharField(
- 			'employee_id',
+	eName = models.CharField(
+ 			'employee_name',
  			max_length=30
  		)
 	flag = models.IntegerField('flag')
@@ -40,3 +40,10 @@ class Order(models.Model):
 	bre   = models.BooleanField()
 	lun   = models.BooleanField()
 	din   = models.BooleanField()
+
+
+class score(models.Model):
+	fName = models.CharField(max_length=50)
+	score = models.IntegerField()
+	sDate = models.DateField()
+	user_id = models.IntegerField()

@@ -18,6 +18,7 @@ urlpatterns = [
     url(r'^del_user$',authority.del_user),
     url(r'^edit_user$',authority.edit_user),
     url(r'^register$',authority.register),
+    url(r'^change_password$',authority.change_password),
     url(r'^order$',order.order),
     url(r'^order_check$',order.order_check),
     url(r'^userAdmin$',authority.userAdmin),
