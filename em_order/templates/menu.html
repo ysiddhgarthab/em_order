@@ -29,17 +29,17 @@
 					<td><a href='edit_menu?mDate={{ i.mDate|date:"Y-m-d" }}'>{{ i.mDate|date:"Y-m-d" }}</a></td>
 					<td>
 						{% for bre in i.bre %}
-							<a href="/food_detail?fName={{bre}}">{{ bre }}</a></br>
+							<a href="/food_detail?fName={{bre}}&mDate={{ i.mDate|date:'Y-m-d' }}">{{ bre }}</a></br>
 						{% endfor %}
 					</td>
 					<td>
 						{% for lun in i.lun %}
-							<a href="/food_detail?fName={{lun}}">{{ lun }}</a></br>
+							<a href="/food_detail?fName={{lun}}&mDate={{ i.mDate|date:'Y-m-d' }}">{{ lun }}</a></br>
 						{% endfor %}
 					</td>
 					<td>
 						{% for din in i.din %}
-							<a href="/food_detail?fName={{din}}">{{ din }}</a></br>
+							<a href="/food_detail?fName={{din}}&mDate={{ i.mDate|date:'Y-m-d' }}">{{ din }}</a></br>
 						{% endfor %}
 					</td>
 					</tr>

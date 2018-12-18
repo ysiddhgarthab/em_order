@@ -20,13 +20,14 @@ def show_menu(request):
 			i.din = i.din.split(",")
 		return render(request, 'index.html', {'menu':rMenu})
 	else:
+		message = request.GET.get("message",'')
 		today = time.strftime('%Y-%m-%d',time.localtime())
 		rMenu = Menu.objects.filter(mDate=today)
 		for i in rMenu:
 			i.bre = i.bre.split(",")
 			i.lun = i.lun.split(",")
 			i.din = i.din.split(",")
-		return render(request, 'index.html', {'menu':rMenu})
+		return render(request, 'index.html', {'menu':rMenu,'message':message})
 
 
 # 获得所有的菜品名称返回添加菜单页面，初始化下拉框

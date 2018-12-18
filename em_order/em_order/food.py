@@ -3,7 +3,7 @@
 from django.shortcuts import render
 from django.views.decorators import csrf
 from django.http import HttpResponse,HttpResponseRedirect
-from OrderModel.models import Food
+from OrderModel.models import Food,Score
 from django.conf import settings
 import time
 from django.shortcuts import render_to_response
@@ -63,18 +63,18 @@ def mod_food(request):
             fCost = 0
         
         food = ""
-        #根据有没有接受到菜品id判断是新增还是更新操作，如果是更新操作，再看用户有没有上传图片，如果有上传图片
-        #则用新上传的图片来代替本来的(不改变图片名,只覆盖内容)，如果是新增操作，用户有上传图片则把图片名存进数据库
-        #否则存入一个空字符串
+        fPic =""
+        #判断用户有没有上传图片
+        pic = request.FILES.get('fPic')
+        #判断是更新还是新增操作
         if fId:
             food = Food.objects.filter(id=fId)
-
-        # 获取用户提交的图片并根据图片名设置路径
-        fPic =""
-        pic = request.FILES.get('fPic')
+        # 用户有上传图片才执行以下操作
         if pic:
-            if food:
+            #如果之前有上传过图片
+            if food and food[0].fPic != '':
                 fPic = str(food[0].fPic)
+            #如果之前没有上传过图片
             else:
                 timestr = str(time.strftime('%Y%m%d%H%M%S',time.localtime(time.time())));
                 fPic    = "OrderModel/"+timestr+pic.name
@@ -86,7 +86,7 @@ def mod_food(request):
 
         #执行新增或更新操作
         if food:
-            food.update(fName=fName,fType=fType,fSpicy=fSpicy,fCost=fCost,fDesc=fDesc)
+            food.update(fName=fName,fType=fType,fSpicy=fSpicy,fCost=fCost,fDesc=fDesc,fPic=fPic)
             
         else:
             fo   = Food(fName=fName,fType=fType,fSpicy=fSpicy,fCost=fCost,fDesc=fDesc,fPic=fPic)
@@ -109,13 +109,27 @@ def del_food(request):
 def food_detail(request):
     if request.GET:
         fName = request.GET['fName']
+        mDate = request.GET.get('mDate','')
         food = Food.objects.filter(fName=fName)
-        print(food)
-    return render(request,"food_detail.html",{"food":food[0]})
+        today = time.strftime('%Y-%m-%d',time.localtime())
+        disable = False
+        if mDate != today:
+            disable = True
+    return render(request,"food_detail.html",{"food":food[0],"disable":disable})
 
-
+@login_required
 def score(request):
     if request.POST:
         fName = request.POST['fName']
         score = request.POST['score']
+        comment = request.POST['comment']
+        sDate = time.strftime('%Y-%m-%d',time.localtime())
+        user_id = request.session['id']
+
+        s = Score.objects.filter(fName=fName,sDate=sDate,user_id=user_id)
+        if s:
+            return HttpResponseRedirect("/?message=你已评价过此菜品！")
+        score = Score(fName=fName,score=score,comment=comment,sDate=sDate,user_id=user_id)
+        score.save()
+        return HttpResponseRedirect("/?message=发表评价成功！")
     return HttpResponseRedirect("/")

@@ -12,14 +12,16 @@
 		<h3 style="text-align: center;">菜品详情</h3>
 		{% if food %}
 		<form action="/score" method="post">
-			<p><span>菜品名：</span><input type="text" name="fName" value="{{food.fName}}"></p>
+			<p><span>菜品名：</span>{{food.fName}}</p>
 			<p><span>菜系：</span>{{food.fType}}</p>
 			<p><span>辣度：</span>{{food.fSpicy}}</p>
 			<p><span>菜品描述：</span>{{food.fDesc}}</p>
 			<p><span>图片：</span><img src="/static/media/{{food.fPic}}" onerror="this.src='static/images/server/default.png'" style="width: 128px;"></p>
+			<p><input type="hidden" name="fName" value="{{food.fName}}"></p>
 			<p><input type="hidden" id="score" name="score"></p>
 			{% csrf_token %}
-			<p><span>评价: </span><div id="star" style="display: inline-block;"></div><button type="submit" class="btn btn-success" style="margin-left: 20px;">提交评价</button></p>
+			<p><span>评价: </span><div id="star" style="display: inline;"></div></p>
+			<p><textarea id="comment" name="comment"></textarea><button type="submit" class="btn btn-success" style="margin-left: 20px;" {%if disable %}disabled="disabled"{%endif%}>提交评价</button></p>
 		</form>
 			<p style="font-size: 1px; color: grey">一星非常差，二星较差，三星一般，四星较好，五星非常好</p>
 		{% endif %}
@@ -35,6 +37,15 @@
     	click:function(score,evt){
     		$("#score").val(score);
     	}
+    })
+
+    $("#comment").bind('input propertychange',function(){
+        var self = $(this);
+        var content = self.val();
+        if(content.length>100){
+            alert("请输入少于100个字符的描述。");
+            self.val(content.substring(0,100));
+        } 
     })
 });
 </script>

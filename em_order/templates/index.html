@@ -11,6 +11,18 @@
 <body>
 <div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
 	{%include "header.html" %}
+    {% if message %}
+    <div class="row-fluid">
+        <div class="span12">
+            <div class="alert">
+                 <button type="button" class="close" data-dismiss="alert">×</button>
+                <h4>
+                    提示：
+                </h4> <strong>{{message}}</strong>
+            </div>
+        </div>
+    </div>
+    {% endif %}
 	{%include "menu.html" %}
 </div>
 <script type="text/javascript" src="static/laydate/laydate.js"></script>

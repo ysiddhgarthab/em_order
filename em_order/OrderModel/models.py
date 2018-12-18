@@ -42,8 +42,9 @@ class Order(models.Model):
 	din   = models.BooleanField()
 
 
-class score(models.Model):
+class Score(models.Model):
 	fName = models.CharField(max_length=50)
 	score = models.IntegerField()
 	sDate = models.DateField()
+	comment = models.CharField(max_length=255,null=True,blank=True)
 	user_id = models.IntegerField()
