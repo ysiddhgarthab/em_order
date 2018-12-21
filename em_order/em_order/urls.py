@@ -10,6 +10,7 @@ urlpatterns = [
     url(r'^del_food$', food.del_food),
     url(r'^food_detail$', food.food_detail),
     url(r'^score$', food.score),
+    url(r'^score_detail$', food.score_detail),
     url(r'^add_menu$', menu.add_menu),
     url(r'^add_menu_check$', menu.add_menu_check),
     url(r'^edit_menu$', menu.edit_menu),

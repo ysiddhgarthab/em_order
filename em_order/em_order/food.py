@@ -117,6 +117,7 @@ def food_detail(request):
             disable = True
     return render(request,"food_detail.html",{"food":food[0],"disable":disable})
 
+
 @login_required
 def score(request):
     if request.POST:
@@ -133,3 +134,15 @@ def score(request):
         score.save()
         return HttpResponseRedirect("/?message=发表评价成功！")
     return HttpResponseRedirect("/")
+
+
+@login_required
+def score_detail(request):
+    if request.POST:
+        startDate = request.POST['startDate'] or '1969-01-01'
+        stopDate   = request.POST['stopDate'] or '2100-01-01'
+        scoreList = Score.objects.filter(sDate__range=(startDate,stopDate))
+        return render(request,"score_detail.html",{"scoreList":scoreList})
+    today = time.strftime('%Y-%m-%d',time.localtime())
+    scoreList = Score.objects.filter(sDate=today).order_by('score')
+    return render(request,"score_detail.html",{"scoreList":scoreList})
