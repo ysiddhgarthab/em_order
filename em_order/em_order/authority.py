@@ -6,7 +6,7 @@ from OrderModel.models import UserProfile
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-
+from django.db.models import Q
 
 
 def register(request):
@@ -18,7 +18,7 @@ def register(request):
 		# 使用内置User自带create_user方法创建用户，不需要使用save()
 		user = User.objects.create_user(username=eId, password=password)
 		# 如果直接使用objects.create()方法后不需要使用save()
-		user_profile = UserProfile(user=user,eName=eName,flag=flag)
+		user_profile = UserProfile(user=user,eName=eName,flag=flag,eId=eId)
 		user_profile.save()
 	return render(request,"register.html")
 
@@ -59,28 +59,31 @@ def logout(request):
 @login_required
 def userAdmin(request):
 	if request.POST:
-		keyWord = request.POST['keyWord']
-		userResult = User.objects.filter(username__icontains=keyWord)
+		eId = request.POST.get('eId','')
+		eName = request.POST.get('eName','')
+		print(eId)
+		print(eName)
+		userProfileResult = UserProfile.objects.exclude(flag=1).filter(Q(eName__icontains=eName) & Q(eId__icontains=eId))
 		userList = []
-		for u in userResult:
+		for u in userProfileResult:
 			user = []
-			userProfile = UserProfile.objects.filter(user=u)
-			user.append(u.id)
-			user.append(u.username)	
-			user.append(userProfile[0].eName)
-			user.append(userProfile[0].flag)
+			userResult = User.objects.filter(id=u.user_id)
+			user.append(userResult[0].id)
+			user.append(userResult[0].username)	
+			user.append(u.eName)
+			user.append(u.flag)
 			userList.append(user)
 		return render(request,"userAdmin.html",{"userList":userList})
 
-	allUser = User.objects.all()
+	userProfileResult = UserProfile.objects.exclude(flag=1)
 	userList = []
-	for u in allUser:
+	for u in userProfileResult:
 		user = []
-		userProfile = UserProfile.objects.filter(user=u)
-		user.append(u.id)
-		user.append(u.username)	
-		user.append(userProfile[0].eName)
-		user.append(userProfile[0].flag)
+		userResult = User.objects.filter(id=u.user_id)
+		user.append(userResult[0].id)
+		user.append(userResult[0].username)	
+		user.append(u.eName)
+		user.append(u.flag)
 		userList.append(user)
 	return render(request,"userAdmin.html",{"userList":userList})
 
@@ -113,7 +116,7 @@ def edit_user(request):
 		if password:
 			user.set_password(password)
 		user.save()
-		UserProfile.objects.filter(user_id=userId).update(eName=eName,flag=flag)
+		UserProfile.objects.filter(user_id=userId).update(eName=eName,flag=flag,eId=eId)
 		return HttpResponseRedirect("/userAdmin")
 
 

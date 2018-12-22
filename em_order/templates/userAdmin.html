@@ -21,7 +21,8 @@
 	<div class="row-fluid" id="mTable">
 		<form class="form-search" action="/userAdmin" method="post">
 				{% csrf_token %}
-				<input class="input-small search-query" name="keyWord" placeholder="请输入关键字" type="text"/>
+				<input class="input-small search-query" name="eId" placeholder="请输入员工号" type="text"/>
+				<input class="input-small search-query" name="eName" placeholder="请输入姓名" type="text"/>
 				<button type="submit" class="btn">查找</button>
 			</form>
 		<table class="table table-hover table-bordered">
