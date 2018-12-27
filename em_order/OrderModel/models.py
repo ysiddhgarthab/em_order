@@ -23,7 +23,8 @@ class UserProfile(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 	eId = models.CharField(
  			'employee_id',
- 			max_length=30
+ 			max_length=30,
+ 			unique=True
  		)
 	eName = models.CharField(
  			'employee_name',
@@ -40,6 +41,7 @@ class UserProfile(models.Model):
 
 class Order(models.Model):
 	eId   = models.CharField(max_length=50)
+	eName = models.CharField(max_length=50)
 	oDate = models.DateField()
 	bre   = models.BooleanField()
 	lun   = models.BooleanField()

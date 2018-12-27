@@ -46,8 +46,8 @@ def add_menu_check(request):
 	if request.POST:
 		mDate  = request.POST['mDate']
 		today = time.strftime('%Y-%m-%d',time.localtime())
-		if mDate<=today:
-			return HttpResponseRedirect("/add_menu?message=请选择大于今天的日期！")
+		if mDate<today:
+			return HttpResponseRedirect("/add_menu?message=请选择大于或等于今天的日期！")
 		if Menu.objects.filter(mDate=mDate):
 			return HttpResponseRedirect("/add_menu?message=该日期的菜单已存在！")
 		bre    = request.POST['bre']

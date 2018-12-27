@@ -2,7 +2,7 @@
 
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from OrderModel.models import UserProfile
+from OrderModel.models import UserProfile,Order
 from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
@@ -134,3 +134,19 @@ def change_password(request):
 		user.save()
 		return HttpResponseRedirect("/login")
 	return render(request,"change_password.html")
+
+
+def userOrderAdmin(request):
+	if request.POST:
+		keyWordType = request.POST['keyWordType']
+		keyWord = request.POST['keyWord']
+		startDate = request.POST['startDate'] or '1969-01-01'
+		stopDate   = request.POST['stopDate'] or '2100-01-01'
+		if keyWordType == 'eId':
+			orders = Order.objects.filter(eId__icontains=keyWord,oDate__range=(startDate,stopDate))
+			return render(request,"userOrderAdmin.html",{"orders":orders})
+		else:
+			orders = Order.objects.filter(eName__icontains=keyWord,oDate__range=(startDate,stopDate))
+			return render(request,"userOrderAdmin.html",{"orders":orders})
+
+	return render(request,"userOrderAdmin.html")

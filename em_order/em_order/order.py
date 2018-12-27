@@ -124,6 +124,7 @@ def order_check(request):
 				bre = request.POST.get(i[0]+'bre',0)
 				lun = request.POST.get(i[0]+'lun',0)
 				din = request.POST.get(i[0]+'din',0)
-				order = Order(eId=request.session['eId'],oDate=i[0],bre=bre,lun=lun,din=din)
+				eName = request.session['eName']
+				order = Order(eId=request.session['eId'],oDate=i[0],bre=bre,lun=lun,din=din,eName=eName)
 				order.save()
 			return HttpResponseRedirect(next)

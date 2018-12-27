@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	{%include "script.html"%}
+	<style type="text/css">
+		#oTable th{
+			vertical-align: middle;
+    		text-align: center; 
+		}
+
+		#oTable td{
+			vertical-align: middle;
+    		text-align: center; 
+		}
+	</style>
+</head>
+<body>
+<div class="container-fluid" style="margin-left: -200px;margin-top: -20px;">
+	{%include "header.html"%}
+	<div class="row-fluid" id="oTable">
+	<form class="form-search" action="/userOrderAdmin" method="post" onsubmit="return inputCheck()">
+		{% csrf_token %}
+		<select style="width: 100px;" name="keyWordType">
+			<option value="eId">员工号：</option>
+			<option value="eName">姓名：</option>
+		</select>
+		<input class="input-small search-query" id="keyWord" name="keyWord" placeholder="请输入关键字" type="text" /> 
+		<input class="input-small search-query" id="startDate" name="startDate" placeholder="开始日期" type="text" /> 
+		<input class="input-small search-query" id="stopDate" name="stopDate" placeholder="结束日期" type="text" />
+		<button type="submit" class="btn">查找</button>
+	</form>
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr style="background-color: #dff0d8">
+				<th>
+					员工号
+				</th>
+				<th>
+					姓名
+				</th>
+				<th>
+					日期
+				</th>
+				<th>
+					早餐
+				</th>
+				<th>
+					午餐
+				</th>
+				<th>
+					晚餐
+				</th>
+				<th>
+					操作
+				</th>				
+			</tr>
+		</thead>
+		<tbody>
+			{%for i in orders%}
+				<tr>
+					<td>{{i.eId}}</td>
+					<td>{{i.eName}}</td>
+					<td>{{i.oDate|date:'Y-m-d'}}</td>
+					<td>{{i.bre}}</td>
+					<td>{{i.lun}}</td>
+					<td>{{i.din}}</td>
+					<td><button class="btn">更新</button></td>
+				</tr>
+			{%endfor%}
+		</tbody>
+	</table>
+	</div>
+</div>
+<script type="text/javascript">
+	function inputCheck(){
+		var keyWord = document.getElementById("keyWord").value.replace(/\s+/g,"");
+		if (keyWord == ""){
+			alert("请输入关键字！")
+			return false;
+		}
+		return true;
+	} 
+</script>
+</body>
+</html>

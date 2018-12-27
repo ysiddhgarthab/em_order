@@ -10,7 +10,7 @@
 							<li>
 								<a href="/">今日菜单</a>
 							</li>
-							{% if request.session.flag == 3 %}
+							{% if request.session.flag == 3 or request.session.flag == 1  %}
 							<li>
 								<a href="/order">用户报餐</a>
 							</li>
@@ -49,6 +49,10 @@
 									<li>
 										<a href="/userAdmin">用户管理</a>
 									</li>
+									<li>
+										<a href="/userOrderAdmin">用户报餐管理</a>
+									</li>
+
 								</ul>
 							</li>
 							{% endif %}
