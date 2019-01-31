@@ -150,3 +150,13 @@ def userOrderAdmin(request):
 			return render(request,"userOrderAdmin.html",{"orders":orders})
 
 	return render(request,"userOrderAdmin.html")
+
+
+def editUserOrder(request):
+	if request.POST:
+		oId = request.POST['oId']
+		bre = request.POST['bre']
+		lun = request.POST['lun']
+		din = request.POST['din']
+		Order.objects.filter(id=oId).update(bre=bre,lun=lun,din=din)
+		return render(request,"userOrderAdmin.html")

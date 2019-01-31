@@ -58,21 +58,47 @@
 		</thead>
 		<tbody>
 			{%for i in orders%}
+			<form action="editUserOrder" method="post">
+				{% csrf_token %}
 				<tr>
+					<input type="hidden" name="oId" value="{{i.id}}">
 					<td>{{i.eId}}</td>
 					<td>{{i.eName}}</td>
 					<td>{{i.oDate|date:'Y-m-d'}}</td>
-					<td>{{i.bre}}</td>
-					<td>{{i.lun}}</td>
-					<td>{{i.din}}</td>
-					<td><button class="btn">更新</button></td>
+					<td>
+						<select name="bre">
+							<option {%if i.bre%}selected{%endif%} value="True">已报餐</option>
+							<option {%if not i.bre%}selected{%endif%} value="False">未报餐</option>
+						</select>
+					</td>
+					<td>
+						<select name="lun">
+							<option {%if i.lun%}selected{%endif%} value="True">已报餐</option>
+							<option {%if not i.lun%}selected{%endif%} value="False">未报餐</option>
+						</select>
+					</td>
+					<td>
+						<select name="din">
+							<option {%if i.din%}selected{%endif%} value="True">已报餐</option>
+							<option {%if not i.din%}selected{%endif%} value="False">未报餐</option>
+						</select>
+					</td>
+					<td><button class="btn">保存</button></td>
 				</tr>
+				</form>
 			{%endfor%}
 		</tbody>
 	</table>
 	</div>
 </div>
+<script type="text/javascript" src="static/laydate/laydate.js"></script>
 <script type="text/javascript">
+	laydate.render({
+      elem: '#startDate',
+    });
+    laydate.render({
+      elem: '#stopDate',
+    });
 	function inputCheck(){
 		var keyWord = document.getElementById("keyWord").value.replace(/\s+/g,"");
 		if (keyWord == ""){

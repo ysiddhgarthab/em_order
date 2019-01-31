@@ -24,5 +24,6 @@ urlpatterns = [
     url(r'^order$',order.order),
     url(r'^order_check$',order.order_check),
     url(r'^userAdmin$',authority.userAdmin),
-    url(r'^userOrderAdmin$',authority.userOrderAdmin)
+    url(r'^userOrderAdmin$',authority.userOrderAdmin),
+    url(r'^editUserOrder$',authority.editUserOrder)
 ]

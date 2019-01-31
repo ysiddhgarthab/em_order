@@ -26,7 +26,13 @@
 			<tbody>
 				{% for i in menu %}
 					<tr class="success">
-					<td><a href='edit_menu?mDate={{ i.mDate|date:"Y-m-d" }}'>{{ i.mDate|date:"Y-m-d" }}</a></td>
+					<td>
+						{% if request.session.flag == 1 or request.session.flag == 2  %}
+							<a href='edit_menu?mDate={{ i.mDate|date:"Y-m-d" }}'>{{ i.mDate|date:"Y-m-d" }}</a>
+						{% else %}
+							{{ i.mDate|date:"Y-m-d" }}
+						{% endif %}
+					</td>
 					<td>
 						{% for bre in i.bre %}
 							<a href="/food_detail?fName={{bre}}&mDate={{ i.mDate|date:'Y-m-d' }}">{{ bre }}</a></br>
